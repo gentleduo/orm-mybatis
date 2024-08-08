@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.CrudEmpMapper">
+    <!--
+    增删改方法的返回值类型都是int，因此insert update delete标签中没有resultType
+    -->
+    <insert id="addEmp" parameterType="emp">
+        insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno) value (#{empno}, #{ename}, #{job}, #{mgr},
+        #{hiredate}, #{sal}, #{comm}, #{deptno})
+    </insert>
+
+    <update id="updateEmp">
+        update emp set ename = #{ename} where empno = #{empno}
+    </update>
+
+    <delete id="deletyByEmpno">
+        delete from emp where empno >= #{empno}
+    </delete>
+</mapper>

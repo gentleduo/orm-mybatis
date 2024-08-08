@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.SearchParameterEmpMapper">
+    <!--
+    查询参数为一个基本数据类型；
+    根据员工编号查询员工信息
+    parameterType在有参数的情况下也是可以省略不写的，mybatis可以根据实际情况自动判断
+    如果要写parameterType那么就要写对
+    在SQL语句中可以使用${}或者#{}代表参数的占位，
+    如果参数是单个基本数据类型{}中的名字可以随便写，
+    ${} 代表mybatis底层使用Statement语句对象，参数是以字符串拼接的形式设置
+    #{} 代表mybatismybatis底层使用PreparedStatement语句对象，参数使用?作为站位符处理
+    -->
+    <select id="findByEmpno" parameterType="int" resultType="emp">
+        select * from emp where empno = #{empno};
+    </select>
+
+    <!--
+    查询参数为map集合
+    查询指定部门和指定最低薪资的员工信息：20号部门，且工资在1500以上的
+    '>'和'<'符号在xml是特殊符号，所以表示大于和小于的时候最好要用转义处理：参照html转义 w3school在线文档中有转义符号对应规则：
+    #{}中写的是map集合中，参数的键
+    -->
+    <select id="findEmpByDeptnoAndSal" parameterType="map" resultType="emp">
+        select * from emp where deptno = #{deptno} and sal &gt; #{sal};
+    </select>
+
+    <!--
+    查询参数为对象
+    #{}中写的是参数的属性名
+    -->
+    <select id="findEmpByObject" parameterType="emp" resultType="emp">
+        select * from emp where deptno = #{deptno} and sal &gt; #{sal};
+    </select>
+</mapper>

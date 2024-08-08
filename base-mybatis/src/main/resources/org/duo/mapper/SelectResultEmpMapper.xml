@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.SelectResultEmpMapper">
+    <!--
+    返回单个对象
+    id 相当于方法名
+    resultType 相当于返回值类型：sql语句的返回结果用哪个类进行封装，如果返回的是集合，这里写的也是集合中的元素对应的类
+    resultType必须写类的全限定名，但是由于在sqlMapConfig.xml中为org.duo.pojo包下面的所有java类定义了类型别名，所以这里可以写成emp
+    parameterType 参数类型
+    -->
+    <select id="findOne" resultType="emp">
+        select * from emp where empno = 7499;
+    </select>
+
+    <!-- 返回多个对象list集合 -->
+    <select id="findAll" resultType="emp">
+        select * from emp;
+    </select>
+
+    <!-- 返回多个对象map集合 -->
+    <!--
+    把查询出来的数据中的某一列作为键，把整条数据封装的对象作为指；
+    <empno,Emp>
+    resultType要写类的全限定名：比如 java.util.Map
+    但是mybatis为常见的Java类型内建了类型别名，所以这里可以写成：map
+    详细可见：http://mybatis.p2hp.com/configuration.html
+    -->
+    <select id="findMap" resultType="map">
+        select * from emp;
+    </select>
+
+</mapper>
