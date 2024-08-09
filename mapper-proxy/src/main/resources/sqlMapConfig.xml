@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="jdbc.properties">
+    </properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <typeAliases>
+        <!--<typeAlias type="org.duo.pojo.Dept" alias="dept"></typeAlias>-->
+        <!-- 包扫描起别名，类的短路径名首字母小写 -->
+        <package name="org.duo.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 加载mapper映射文件 -->
+    <mappers>
+        <!-- 通过类的全限定名去找mapper映射文件 -->
+        <!--<mapper class="org.duo.mapper.EmpMapper"></mapper>-->
+        <!--通过包扫描加载所有的mapper-->
+        <package name="org.duo.mapper"/>
+    </mappers>
+</configuration>

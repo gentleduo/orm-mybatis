@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <properties resource="jdbc.properties">
+    </properties>
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+        <!--延迟加载-->
+        <!--延迟加载的内容等到真正使用时才去进行加载（查询）。多用在关联对象或集合中。-->
+        <!--延迟加载的设置-->
+        <!--第一步：全局开关：-->
+        <!--在sqlMapConfig.xml中打开延迟加载的开关。配置完成后所有的association和collection元素都生效-->
+        <!--lazyLoadingEnabled:是否开启延迟加载。是Mybatis是否启用懒加载的全局开关。当开启时，所有关联对象都会延迟加载。-->
+        <!--aggressiveLazyLoading：当开启时，任何方法的调用都会懒加载对象的所有属性。否则，每个属性会按需加载-->
+        <!--第二步：分开关：-->
+        <!--指定的association和collection元素中配置fetchType属性。eager：表示立刻加载；lazy：表示延迟加载。将覆盖全局延迟设置。-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <setting name="aggressiveLazyLoading" value="true"/>
+    </settings>
+    <typeAliases>
+        <!--<typeAlias type="org.duo.pojo.Dept" alias="dept"></typeAlias>-->
+        <!-- 包扫描起别名，类的短路径名首字母小写 -->
+        <package name="org.duo.pojo"/>
+    </typeAliases>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!-- 加载mapper映射文件 -->
+    <mappers>
+        <!-- 通过类的全限定名去找mapper映射文件 -->
+        <!--<mapper class="org.duo.mapper.EmpMapper"></mapper>-->
+        <!--通过包扫描加载所有的mapper-->
+        <package name="org.duo.mapper"/>
+    </mappers>
+</configuration>

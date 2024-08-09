@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.EmpMapper">
+
+    <!--
+    ResultType和ResultMap使用场景
+    resultType：
+      1、单表的查询并且封装的实体和数据库的字段一一对应;
+    resultMap：
+      1、实体封装的属性和数据库的字段不一致;
+      2、使用N+1级联查询的时候
+      3、使用的是多表的连接查询
+    resultMap中的常见属性：
+      property：需要映射到JavaBean的属性名称
+      javaType：property的类型，一个完整的类名，或者是一个类型别名。（MyBatis通常会自行检测，可以省略）
+      column：数据表的列名或者列别名
+      jdbcType：column在数据库表中的类型，（MyBatis通常会自行检测，可以省略）
+      typeHandler：使用这个属性可以覆写类型处理器，实现javaType、jdbcType之间的相互转换。
+      fetchType：自动延迟加载
+      select：association、collection的属性，使用哪个查询方法查询，要求指定接口的全限定名
+      ofType：collection的属性，指明集合中元素的类型（即泛型类型）
+    -->
+    <resultMap id="empResultMap" type="emp">
+        <!--
+        如果是主键，用id
+        -->
+        <id column="empno" property="empno" jdbcType="INTEGER" javaType="Integer"></id>
+        <!--
+        如果不用主键、用result
+        -->
+        <result column="ename" property="name"></result>
+    </resultMap>
+
+    <!--Emp findEmpJoinDeptByEmpno(int empno);-->
+    <resultMap id="empJoinDept" type="emp">
+        <!--设置emp本身的八个属性的映射关系-->
+        <id property="empno" column="empno"></id>
+        <result property="name" column="ename"></result>
+        <result property="job" column="job"></result>
+        <result property="sal" column="sal"></result>
+        <result property="hiredate" column="hiredate"></result>
+        <result property="mgr" column="mgr"></result>
+        <result property="comm" column="comm"></result>
+        <result property="deptno" column="deptno"></result>
+        <!--
+        association 处理一对一
+        封装一对一信息关系的标签
+        property  emp类的属性名
+        javaType  用哪个类的对象给属性赋值
+        -->
+        <association property="dept" javaType="dept">
+            <id column="deptno" property="deptno"></id>
+            <result column="dname" property="dname"></result>
+            <result column="loc" property="loc"></result>
+        </association>
+    </resultMap>
+
+    <select id="findAll" resultMap="empResultMap">
+        select * from emp
+    </select>
+
+    <select id="findEmpJoinDeptByEmpno" resultMap="empJoinDept">
+        select * from
+        emp e
+        left join dept d
+        on e.deptno =d.deptno
+        where empno = #{empno}
+    </select>
+
+</mapper>

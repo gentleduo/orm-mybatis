@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.EmpMapper">
+    <!--
+    1、接口名字和Mapper映射文件名字必须保持一致（不包含扩展名）
+    2、Mapper映射文件的namespace必须是接口的全限定名
+    3、sql语句的id必须是对应方法的名字
+    4、EmpMapper映射文件必须和接口编译之后放在同一个目录下
+    -->
+    <select id="findAll" resultType="emp">
+        select * from emp
+    </select>
+
+    <!--
+    单个基本数据类型作为方法参数
+    #{}中可以随便写，遵循见名知意
+    -->
+    <select id="findByEmpno" resultType="emp">
+        select * from emp where empno = #{empno}
+    </select>
+
+    <!--
+    多个基本数据类型作为方法参数
+    方式1 arg* arg0, arg1, arg2 数字是索引，从0开始
+    方式2 param* param1, param2, param3 数字是编号，从1开始
+    使用别名
+    public List<Emp> findByDeptnoAndSal(@Param("deptno") int deptno, @Param("sal") double sal)
+    通过@param注解使用别名之后，就不能使用arg*，但是可以继续使用param*
+    -->
+    <select id="findByDeptnoAndSal" resultType="emp">
+        <!--select * from emp where deptno = #{arg0} and sal >= #{arg1}-->
+        <!--select * from emp where deptno = #{param1} and sal >= #{param2}-->
+        select * from emp where deptno = #{deptno} and sal >= #{sal}
+    </select>
+
+    <!--
+    参数是map，{}写键的名字
+    -->
+    <select id="findByMap" resultType="emp" parameterType="map">
+        select * from emp where deptno = #{deptno} and sal >= #{sal}
+    </select>
+
+
+    <!--
+    参数是引用类型，{}写的使用对象的属性名
+    -->
+    <select id="findByObject" resultType="emp" parameterType="emp">
+        select * from emp where deptno = #{deptno} and sal >= #{sal}
+    </select>
+
+    <!--
+    参数是员工姓名片段
+    -->
+    <select id="findByLike" resultType="emp">
+        select * from emp where ename like concat('%', #{ename}, '%')
+    </select>
+
+    <insert id="addEmp">
+        insert into emp values (DEFAULT, #{ename}, #{job}, #{mgr}, #{hiredate}, #{sal}, #{comm}, #{deptno})
+    </insert>
+
+    <update id="updateEnameByEmpno">
+        update emp set ename = #{ename} where empno = #{empno}
+    </update>
+
+    <update id="deleteByEmpno">
+        delete from emp where empno = #{empno}
+    </update>
+</mapper>

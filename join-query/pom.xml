@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
-    <artifactId>base-mybatis</artifactId>
+    <artifactId>join-query</artifactId>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -55,5 +55,4 @@
         </dependency>
 
     </dependencies>
-
 </project>

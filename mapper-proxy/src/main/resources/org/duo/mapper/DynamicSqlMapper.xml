@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.DynamicSqlMapper">
+
+    <!-- sql片段，定义公共的SQL片段，在需要用的地方直接引入-->
+    <sql id="empColumn">empno,ename,job,mgr,hiredate,sal,comm,deptno</sql>
+    <sql id="baSelect">
+        select
+        <include refid="empColumn"></include>
+        from emp
+    </sql>
+
+    <select id="findByIf" resultType="emp">
+        select <include refid="empColumn"></include> from emp where 1=1
+        <if test="empno != null">
+            and empno = #{empno}
+        </if>
+        <if test="ename != null and ename != ''">
+            <!-- bind标签一般用于处理模糊查询的模版 -->
+            <bind name="likePattern" value="'%'+ename+'%'"/>
+            and ename like #{likePattern}
+        </if>
+    </select>
+
+    <!--
+    使用where标签是为了规避单独使用 if 标签所存在的不足：
+    单独使用if标签的时候，需要在SQL语句中额外加上 where 关键字，但是：如果全部的if标签的条件都不满足，那么还存在着where关键字，那么就会造成SQL语法错误。
+    此外，还可能会多一个少一个or或者是and这样的连接词。
+    -->
+    <select id="findByWhere" resultType="emp">
+        <include refid="baSelect"></include>
+        <where>
+            <if test="empno != null">
+                and empno = #{empno}
+            </if>
+            <if test="ename != null and ename != ''">
+                and ename like concat('%', #{ename}, '%')
+            </if>
+            <if test="job != null and job != ''">
+                and job = #{job}
+            </if>
+            <if test="mgr != null">
+                and mgr = #{mgr}
+            </if>
+            <if test="hiredate != null">
+                and hiredate = #{hiredate}
+            </if>
+            <if test="sal != null">
+                and sal = #{sal}
+            </if>
+            <if test="comm != null">
+                and comm = #{comm}
+            </if>
+            <if test="deptno != null">
+                and deptno = #{deptno}
+            </if>
+        </where>
+    </select>
+
+    <!--
+    choose标签是按顺序判断其内部when标签中的test条件出否成立，如果有一个成立，则choose结束。当choose中所有when的条件都不满则时，则执行otherwise中的sql。
+    类似于Java的switch语句，choose为switch，when为case，otherwise则为default。
+    -->
+    <select id="findByWhereChoose" resultType="emp">
+        select * from emp
+        <where>
+            <choose>
+                <when test="empno != null">
+                    and empno = #{empno}
+                </when>
+                <when test="ename != null and ename != ''">
+                    and ename like concat('%', #{ename}, '%')
+                </when>
+                <when test="job != null and job != ''">
+                    and job = #{job}
+                </when>
+                <when test="mgr != null">
+                    and mgr = #{mgr}
+                </when>
+                <when test="hiredate != null">
+                    and hiredate = #{hiredate}
+                </when>
+                <when test="sal != null">
+                    and sal = #{sal}
+                </when>
+                <when test="comm != null">
+                    and comm = #{comm}
+                </when>
+                <when test="deptno != null">
+                    and deptno = #{deptno}
+                </when>
+            </choose>
+        </where>
+    </select>
+
+    <update id="updateBySet">
+        update emp
+        <set>
+            <if test="empno != null">
+                , empno = #{empno}
+            </if>
+            <if test="ename != null and ename != ''">
+                , ename = #{ename}
+            </if>
+            <if test="job != null and job != ''">
+                , job = #{job}
+            </if>
+            <if test="mgr != null">
+                , mgr = #{mgr}
+            </if>
+            <if test="hiredate != null">
+                , hiredate = #{hiredate}
+            </if>
+            <if test="sal != null">
+                , sal = #{sal}
+            </if>
+            <if test="comm != null">
+                , comm = #{comm}
+            </if>
+            <if test="deptno != null">
+                , deptno = #{deptno}
+            </if>
+        </set>
+        where empno = #{empno}
+    </update>
+
+    <!--
+    where和set都可以看做是这一种特殊的trim标签，trim标签有4个属性：
+    prefix: 添加到文本前面的字符串
+    prefixOverrides: 需要被替换的字符串
+    suffix: 添加到文本后面的字符串
+    suffixOverrides: 需要被替换的字符串
+
+    例如：
+    <trim prefix="WHERE" prefixOverrides="AND |OR ">
+      <if test="name != null">
+        AND name = #{name}
+      </if>
+      <if test="email != null">
+        AND email = #{email}
+      </if>
+    </trim>
+    在这个例子中，如果name和email都不为null，trim标签会确保WHERE子句前面有且只有一个AND，并且如果AND或OR是子句的第一个词，它们会被WHERE替换。
+    如果两个条件都不满足，则不会添加WHERE子句。
+    -->
+    <update id="updateByTrim">
+        update emp
+        <trim prefix="set" prefixOverrides=",">
+            <if test="empno != null">
+                , empno = #{empno}
+            </if>
+            <if test="ename != null and ename != ''">
+                , ename = #{ename}
+            </if>
+            <if test="job != null and job != ''">
+                , job = #{job}
+            </if>
+            <if test="mgr != null">
+                , mgr = #{mgr}
+            </if>
+            <if test="hiredate != null">
+                , hiredate = #{hiredate}
+            </if>
+            <if test="sal != null">
+                , sal = #{sal}
+            </if>
+            <if test="comm != null">
+                , comm = #{comm}
+            </if>
+            <if test="deptno != null">
+                , deptno = #{deptno}
+            </if>
+        </trim>
+        where empno = #{empno}
+    </update>
+
+    <!--
+    collection：数据:array、集合:list
+    separator：两次遍历结果之间所添加的分隔符
+    open：添加在最终遍历结果之前的符号
+    close：添加在最终遍历结果之后的符号
+    itme：用于表示每次遍历时的集合中的元素名称，可以通过点操作符访问元素属性
+    -->
+    <select id="findByArray" resultType="emp">
+        select * from emp where empno in
+        <foreach collection="array" separator="," open="(" close=")" item="empno">
+            #{empno}
+        </foreach>
+    </select>
+
+    <select id="findByList" resultType="emp">
+        select * from emp where empno in
+        <foreach collection="list" separator="," open="(" close=")" item="empno">
+            #{empno}
+        </foreach>
+    </select>
+</mapper>

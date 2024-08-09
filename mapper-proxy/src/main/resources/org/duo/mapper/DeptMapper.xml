@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.DeptMapper">
+
+    <!--
+    主键自增回填：主键回填是ORM框架（如MyBatis）中的一项功能，它在数据库插入操作后，自动获取数据库生成的主键值（尤其适用于自增主键），
+    并填充到实体对象中相应的属性，帮助开发者在插入新记录后立即获取并使用主键值。
+    -->
+    <!--方式一：
+    在使用insert标签时，在useGeneratedKeys中选择："true"，意为是否主键回填，true回填；
+    然后在keyProperty中填入"id" 即对象的属性名。
+    -->
+    <insert id="addDept" useGeneratedKeys="true" keyProperty="deptno">
+        insert into dept values (DEFAULT, #{dname}, #{loc})
+    </insert>
+    <!--方式二：
+    使用selectkey标签， order选项中选择"AFTER",意为：插入后再回填，然后在keyProperty中填入"deptno" 即对象的属性名 ，
+    而resultType中填入返回值类型 如："int"
+    -->
+    <!--    <insert id="addDeptBySelectkey">
+            <selectKey order="AFTER" keyProperty="deptno" resultType="int">
+                select @@identity
+            </selectKey>
+            insert into dept values (DEFAULT, #{dname}, #{loc})
+        </insert>-->
+</mapper>

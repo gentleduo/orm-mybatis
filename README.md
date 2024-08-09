@@ -19,48 +19,172 @@ ORM，Object-Relation Mapping，对象关系映射，它的作用是在关系型
  */
 create database if not exists mybatis_dev default character set utf8mb4 collate utf8mb4_0900_ai_ci;
 
-CREATE TABLE `dept` (
-  `deptno` int NOT NULL,
-  `dname` char(32) DEFAULT NULL,
-  `loc` char(32) DEFAULT NULL,
-  PRIMARY KEY (`deptno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
 
-insert into dept(deptno, dname, loc) values(10,'ACCOUNTING','NEW YORK');
-insert into dept(deptno, dname, loc) values(20,'RESEARCH','DALLAS');
-insert into dept(deptno, dname, loc) values(30,'SALES','CHICAGO');
-insert into dept(deptno, dname, loc) values(40,'OPERATIONS','BOSTON');
+-- ----------------------------
+-- Table structure for bonus
+-- ----------------------------
+DROP TABLE IF EXISTS `bonus`;
+CREATE TABLE `bonus`  (
+  `ENAME` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `JOB` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `SAL` double(7, 2) NULL DEFAULT NULL,
+  `COMM` double(7, 2) NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `emp` (
-  `empno` int NOT NULL,
-  `ename` char(32) DEFAULT NULL,
-  `job` char(32) DEFAULT NULL,
-  `mgr` int DEFAULT NULL,
-  `hiredate` date DEFAULT NULL,
-  `sal` double DEFAULT NULL,
-  `comm` double DEFAULT NULL,
-  `deptno` int DEFAULT NULL,
-  PRIMARY KEY (`empno`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+-- ----------------------------
+-- Records of bonus
+-- ----------------------------
 
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7369, 'SMITH', 'CLERK', 7902, '1980-12-17', 800.00 , NULL, 20);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7499, 'ALLEN', 'SALESMAN', 7698, '1981-02-20', 1600.00 , 300.00, 30);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7521, 'WARD', 'SALESMAN', 7698, '1981-02-22', 1250.00 , 500.00, 30);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7566, 'JONES', 'MANAGER', 7839, '1981-04-02', 2975.00 , NULL, 20);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250.00 , 1400.00, 30);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850.00 , NULL, 30);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450.00 , NULL, 10);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7788, 'SCOTT', 'ANALYST', 7566, '1987-04-19', 3000.00 , NULL, 20);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000.00 , NULL, 10);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500.00 , 0.00, 30);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7876, 'ADAMS', 'CLERK', 7788, '1987-05-23', 1100.00 , NULL, 20);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950.00 , NULL, 30);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000.00 , NULL, 20);
-insert into emp(empno, ename, job, mgr, hiredate, sal, comm, deptno)values(7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300.00 , NULL, 10);
+-- ----------------------------
+-- Table structure for dept
+-- ----------------------------
+DROP TABLE IF EXISTS `dept`;
+CREATE TABLE `dept`  (
+  `DEPTNO` int(2) NOT NULL,
+  `DNAME` varchar(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `LOC` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`DEPTNO`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of dept
+-- ----------------------------
+INSERT INTO `dept` VALUES (10, 'ACCOUNTING', 'NEW YORK');
+INSERT INTO `dept` VALUES (20, 'RESEARCH', 'DALLAS');
+INSERT INTO `dept` VALUES (30, 'SALES', 'CHICAGO');
+INSERT INTO `dept` VALUES (40, 'OPERATIONS', 'BOSTON');
+
+-- ----------------------------
+-- Table structure for emp
+-- ----------------------------
+DROP TABLE IF EXISTS `emp`;
+CREATE TABLE `emp`  (
+  `EMPNO` int(4) NOT NULL,
+  `ENAME` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `JOB` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `MGR` int(4) NULL DEFAULT NULL,
+  `HIREDATE` date NULL DEFAULT NULL,
+  `SAL` double(7, 2) NULL DEFAULT NULL,
+  `COMM` double(7, 2) NULL DEFAULT NULL,
+  `DEPTNO` int(2) NULL DEFAULT NULL,
+  PRIMARY KEY (`EMPNO`) USING BTREE,
+  INDEX `FK_DEPTNO`(`DEPTNO`) USING BTREE,
+  CONSTRAINT `FK_DEPTNO` FOREIGN KEY (`DEPTNO`) REFERENCES `dept` (`DEPTNO`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of emp
+-- ----------------------------
+INSERT INTO `emp` VALUES (7369, 'SMITH', 'CLERK', 7902, '1980-12-17', 800.00, NULL, 20);
+INSERT INTO `emp` VALUES (7499, 'ALLEN', 'SALESMAN', 7698, '1981-02-20', 1600.00, 300.00, 30);
+INSERT INTO `emp` VALUES (7521, 'WARD', 'SALESMAN', 7698, '1981-02-22', 1250.00, 500.00, 30);
+INSERT INTO `emp` VALUES (7566, 'JONES', 'MANAGER', 7839, '1981-04-02', 2975.00, NULL, 20);
+INSERT INTO `emp` VALUES (7654, 'MARTIN', 'SALESMAN', 7698, '1981-09-28', 1250.00, 1400.00, 30);
+INSERT INTO `emp` VALUES (7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850.00, NULL, 30);
+INSERT INTO `emp` VALUES (7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450.00, NULL, 10);
+INSERT INTO `emp` VALUES (7788, 'SCOTT', 'ANALYST', 7566, '1987-04-19', 3000.00, NULL, 20);
+INSERT INTO `emp` VALUES (7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000.00, NULL, 10);
+INSERT INTO `emp` VALUES (7844, 'TURNER', 'SALESMAN', 7698, '1981-09-08', 1500.00, 0.00, 30);
+INSERT INTO `emp` VALUES (7876, 'ADAMS', 'CLERK', 7788, '1987-05-23', 1100.00, NULL, 20);
+INSERT INTO `emp` VALUES (7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950.00, NULL, 30);
+INSERT INTO `emp` VALUES (7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000.00, NULL, 20);
+INSERT INTO `emp` VALUES (7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300.00, NULL, 10);
+
+-- ----------------------------
+-- Table structure for salgrade
+-- ----------------------------
+DROP TABLE IF EXISTS `salgrade`;
+CREATE TABLE `salgrade`  (
+  `GRADE` int(11) NOT NULL,
+  `LOSAL` double(7, 2) NULL DEFAULT NULL,
+  `HISAL` double(7, 2) NULL DEFAULT NULL,
+  PRIMARY KEY (`GRADE`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of salgrade
+-- ----------------------------
+INSERT INTO `salgrade` VALUES (1, 700.00, 1200.00);
+INSERT INTO `salgrade` VALUES (2, 1201.00, 1400.00);
+INSERT INTO `salgrade` VALUES (3, 1401.00, 2000.00);
+INSERT INTO `salgrade` VALUES (4, 2001.00, 3000.00);
+INSERT INTO `salgrade` VALUES (5, 3001.00, 9999.00);
+
+DROP TABLE IF EXISTS `projects`;
+CREATE TABLE `projects`  (
+  `pid` int(2) NOT NULL AUTO_INCREMENT,
+  `pname` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `money` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`pid`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+
+INSERT INTO `projects` VALUES (1, ' ***大学OA', 500000);
+INSERT INTO `projects` VALUES (2, '学生选课系统', 100000);
+INSERT INTO `projects` VALUES (3, '讲师测评系统', 20000);
+INSERT INTO `projects` VALUES (4, '线上问答系统 ', 20000);
+
+DROP TABLE IF EXISTS `projectrecord`;
+CREATE TABLE `projectrecord`  (
+  `empno` int(4) NOT NULL,
+  `pid` int(2) NOT NULL,
+  PRIMARY KEY (`empno`, `pid`) USING BTREE,
+  INDEX `fk_project_pro`(`pid`) USING BTREE,
+  CONSTRAINT `fk_emp_pro` FOREIGN KEY (`empno`) REFERENCES `emp` (`EMPNO`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_project_pro` FOREIGN KEY (`pid`) REFERENCES `projects` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+
+INSERT INTO `projectrecord` VALUES (7369, 1);
+INSERT INTO `projectrecord` VALUES (7521, 1);
+INSERT INTO `projectrecord` VALUES (7369, 2);
+INSERT INTO `projectrecord` VALUES (7499, 2);
+INSERT INTO `projectrecord` VALUES (7521, 2);
+INSERT INTO `projectrecord` VALUES (7369, 3);
+INSERT INTO `projectrecord` VALUES (7499, 3);
+INSERT INTO `projectrecord` VALUES (7521, 3);
+INSERT INTO `projectrecord` VALUES (7369, 4);
+INSERT INTO `projectrecord` VALUES (7499, 4);
+
+SET FOREIGN_KEY_CHECKS = 1;
 
 -- 修改empno为自动递增
 ALTER TABLE emp MODIFY empno INT AUTO_INCREMENT;
+
+-- 修改deptno为自动递增
+ALTER TABLE dept MODIFY deptno INT AUTO_INCREMENT;
 ```
+
+# Mybatis代理模式
+
+通过SqlSession调用自身方法发送SQL命令并得到结果的方式存在如下缺点：
+
+1. SqlSession的SelectList()、selectOne()、selectMap()等方法都只能提供一个查询参数，如果要多个参数，需要封装到JavaBean或者Map中；
+2. 返回值类型比较固定
+3. 只提供了映射文件，没有提供数据库操作的接口，不利于后期的维护扩展。
+
+在MyBatis中提供了另外一种成为Mapper代理（或称为接口绑定）的操作方式，优点
+
+有接口、模块之间有规范了；
+
+参数的处理多样化了，接口中的方式参数列表由开发者自己决定；
+
+# 动态SQL 
+
+经常遇到很多按照很多查询条件进行查询的情况，如果采用JDBC进行处理，需要根据条件是否取值进行SQL语句的拼接，一般情况下是使用StringBuilder类及其append方法实现，还是比较繁琐，例如：拼接时要确保不能忘记添加必要的空格，还要注意去掉列表最后一列名的逗号。利用动态SQL这一特性可以彻底拜托这种痛苦：
+
+MyBatis在简化操作方法提出了动态SQL功能，将使用Java代码拼接SQL语句，改变为在XML映射文件中截止标签拼接SQL语句。相比而言，大大减少了代码量，更灵活、高度可配置、利于后期维护。
+
+MyBatis中动态SQL是编写在mapper.xml中的，其语法和JSTL类似，但是却是基于强大的OGNL表达式实现的。
+
+MyBatis也可以在注解中配置SQL，但是由于注解功能受限，尤其对于复杂的SQL语句，可读性很差，所以较少使用。
+
+set是trim标签的特例
+
+# MyBatis实现多表查询
+
+# 级联查询
 
 
 

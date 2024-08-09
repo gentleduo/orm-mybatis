@@ -10,6 +10,9 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>base-mybatis</module>
+        <module>mapper-proxy</module>
+        <module>join-query</module>
+        <module>cascade-query</module>
     </modules>
 
     <properties>
