@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.duo.mapper.EmpMapper">
+
+    <!--在要开启二级缓存的mapper文件中开启缓存-->
+    <cache/>
+    <!--List<Emp> findEmpsByDeptno(int deptno);-->
+    <!--mapper在加入Cache后，让个别select元素不使用缓存，可以使用useCache属性，设置为false。-->
+    <select id="findByEmpno" resultType="emp" useCache="true">
+        select * from emp where empno =#{empno}
+    </select>
+
+</mapper>

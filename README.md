@@ -186,5 +186,13 @@ set是trim标签的特例
 
 # 级联查询
 
+# MyBatis注解开发
 
+MyBatis编写SQL除了使用Mapper.xml还可以使用注解完成。当可以使用Auto Mapping时使用注解非常简单，不需要频繁的在接口和mapper.xml两个文件之间进行切换。但是必须配置resultMap时使用注解将会变得很麻烦，这种情况下推荐使用mapper.xml进行配置。
+
+MyBatis支持纯注解方式，支持纯mapper.xml方式，也支持注解和mapper.xml混合形式。如果某个功能同时使用两种方式进行配置，XML方式将覆盖注解方式。当只有接口没有mapper.xml时在sqlMapConfig.xml中可以通过<mapper class=""></mapper>加载接口类。如果是混合使用时，使用<package name=""/>。此方式一直是官方推荐方式。
+
+1. 使用注解没有实现Java代码和SQL语句的解耦
+2. 无法实现SQL语句的动态拼接
+3. 进行多表的查询时定制ResultMap比较麻烦
 

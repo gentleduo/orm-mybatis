@@ -1,6 +1,10 @@
 package org.duo.mapper;
 
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.duo.pojo.Dept;
 
 /**
@@ -10,4 +14,17 @@ import org.duo.pojo.Dept;
 public interface DeptMapper {
 
     Dept findDeptByDeptno(int deptno);
+
+    @Select("select * from dept where deptno =#{deptno}")
+    Dept findByDeptno(int deptno);
+
+    @Update("update dept set dname =#{dname}, loc =#{loc} where deptno =#{deptno}")
+    int updateDept(Dept dept);
+
+    @Insert("insert into dept values(${deptno},#{dname},#{loc})")
+    int addDept(Dept dept);
+
+    @Delete("delete from dept where deptno =#{deptno}")
+    int removeDept(int deptno);
+
 }

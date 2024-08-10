@@ -19,4 +19,9 @@ public class Dept implements Serializable {
     // 组合一个Emp的List集合作为属性
     private List<Emp> empList;
 
+    public Dept(Integer deptno, String dname, String loc) {
+        this.deptno = deptno;
+        this.dname = dname;
+        this.loc = loc;
+    }
 }

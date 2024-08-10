@@ -13,6 +13,7 @@
         <module>mapper-proxy</module>
         <module>join-query</module>
         <module>cascade-query</module>
+        <module>cache</module>
     </modules>
 
     <properties>

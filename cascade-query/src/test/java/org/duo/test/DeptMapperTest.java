@@ -32,7 +32,7 @@ public class DeptMapperTest {
     }
 
     @Test
-    public void findByDetpno() {
+    public void findByDeptno() {
         DeptMapper deptMapper = sqlSession.getMapper(DeptMapper.class);
         Dept dept = deptMapper.findDeptByDeptno(20);
         System.out.println(dept.getDname());
@@ -42,6 +42,45 @@ public class DeptMapperTest {
 //        empList.forEach(System.out::println);
 
     }
+
+    @Test
+    public void findDeptByAnnotations() {
+        DeptMapper deptMapper = sqlSession.getMapper(DeptMapper.class);
+        Dept dept = deptMapper.findByDeptno(20);
+        System.out.println(dept);
+//        System.out.println(dept.getDeptno());
+//        System.out.println(dept.getLoc());
+//        List<Emp> empList = dept.getEmpList();
+//        empList.forEach(System.out::println);
+
+    }
+
+    @Test
+    public void insertDept() {
+        DeptMapper deptMapper = sqlSession.getMapper(DeptMapper.class);
+        Dept dept = new Dept(41, "研发部", "上海");
+        deptMapper.addDept(dept);
+        sqlSession.commit();
+
+    }
+
+    @Test
+    public void updateDept() {
+        DeptMapper deptMapper = sqlSession.getMapper(DeptMapper.class);
+        Dept dept = new Dept(41, "销售部", "北京");
+        deptMapper.updateDept(dept);
+        sqlSession.commit();
+
+    }
+
+    @Test
+    public void deleteDept() {
+        DeptMapper deptMapper = sqlSession.getMapper(DeptMapper.class);
+        deptMapper.removeDept(41);
+        sqlSession.commit();
+
+    }
+
 
     @After
     public void release() {
