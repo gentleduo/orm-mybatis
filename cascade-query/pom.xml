@@ -55,4 +55,25 @@
         </dependency>
 
     </dependencies>
+
+    <build>
+        <!--maven会分别编译main下面的java目录和resources目录，然后将两个编译结果合并起来放在target的classes目录下-->
+        <!--但是maven默认不会编译java目录下的xml和properties文件，如果需要则需要增加下面的配置 -->
+        <!--告诉maven将项目源码中的xml文件和properties文件也进行编译，并放到编译目录中，这样就可以将所有的配置文件从resources目录移至java目录下了-->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
+
 </project>
