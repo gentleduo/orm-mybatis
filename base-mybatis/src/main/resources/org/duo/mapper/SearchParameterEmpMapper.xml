@@ -6,8 +6,10 @@
     <!--
     查询参数为一个基本数据类型；
     根据员工编号查询员工信息
-    parameterType在有参数的情况下也是可以省略不写的，mybatis可以根据实际情况自动判断
-    如果要写parameterType那么就要写对
+    parameterType在下列场合，参数的情况下也是可以省略不写的，mybatis可以根据实际情况自动判断，如果要写parameterType那么就要写对
+        1、在一个参数时可以忽略（可写可不写），
+        2、多个相同类型的参数要写
+        3、多个不同类型的参数可以不写
     在SQL语句中可以使用${}或者#{}代表参数的占位，
     如果参数是单个基本数据类型{}中的名字可以随便写，
     ${} 代表mybatis底层使用Statement语句对象，参数是以字符串拼接的形式设置
@@ -30,6 +32,7 @@
     <!--
     查询参数为对象
     #{}中写的是参数的属性名
+    parameterType 必须写类的全限定名，但是由于在sqlMapConfig.xml中为org.duo.pojo包下面的所有java类定义了类型别名，所以这里可以写成emp
     -->
     <select id="findEmpByObject" parameterType="emp" resultType="emp">
         select * from emp where deptno = #{deptno} and sal &gt; #{sal};

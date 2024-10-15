@@ -42,7 +42,7 @@ CREATE TABLE `bonus`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `dept`;
 CREATE TABLE `dept`  (
-  `DEPTNO` int(2) NOT NULL,
+  `DEPTNO` int(2) NOT NULL AUTO_INCREMENT,
   `DNAME` varchar(14) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `LOC` varchar(13) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   PRIMARY KEY (`DEPTNO`) USING BTREE
@@ -61,7 +61,7 @@ INSERT INTO `dept` VALUES (40, 'OPERATIONS', 'BOSTON');
 -- ----------------------------
 DROP TABLE IF EXISTS `emp`;
 CREATE TABLE `emp`  (
-  `EMPNO` int(4) NOT NULL,
+  `EMPNO` int(4) NOT NULL AUTO_INCREMENT,
   `ENAME` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `JOB` varchar(9) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `MGR` int(4) NULL DEFAULT NULL,

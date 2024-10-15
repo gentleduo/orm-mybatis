@@ -7,7 +7,7 @@
     返回单个对象
     id 相当于方法名
     resultType 相当于返回值类型：sql语句的返回结果用哪个类进行封装，如果返回的是集合，这里写的也是集合中的元素对应的类
-    resultType必须写类的全限定名，但是由于在sqlMapConfig.xml中为org.duo.pojo包下面的所有java类定义了类型别名，所以这里可以写成emp
+    resultType 必须写类的全限定名，但是由于在sqlMapConfig.xml中为org.duo.pojo包下面的所有java类定义了类型别名，所以这里可以写成emp
     parameterType 参数类型
     -->
     <select id="findOne" resultType="emp">
